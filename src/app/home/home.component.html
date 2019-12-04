@@ -1,0 +1,23 @@
+<div class="alert alert-rose">
+  <h2 class="alert-heading">Introduction</h2>
+  <p>YouTube (the world-famous video sharing website) maintains a list of the top trending videos, which indicates the audience interest across countries and the changing preferences over time.</p>
+  <p>This project explores the trending Youtube vidoes from Jan. 1, 2017 to May 31, 2018 in 9 countries (United States, Canada, Mexico, Great Britain, Germany, France, South Korea, Japan and India).</p>
+  <hr>
+<p class="mb-0">Dataset Link: click <a href="https://www.kaggle.com/datasnaek/youtube-new">here</a>.</p>
+</div>
+  <h2 class="font-weight-bold">Explore the Most Popular Categories and Tags</h2>
+  <div class="row">
+    <p class="col-10 mb-0">The bar chart below shows the popularity of different categories worldwide.</p>
+    <p class="col-10 mb-0">The wordcloud below shows the most common vidoe tags and their relative frequency. Initially, its range is of all categories.</p>
+    <p class="col-10 mb-0">Click each <b>bar</b> in the bar chart to choose one category of these trending videos to generate category-specified wordcloud.</p>
+    <p class="col-12 mb-0">Click the <b>reset</b> button to show the initial wordcloud.</p>
+    <button class="ml-3 btn btn-success reset">Reset</button>
+  </div>
+  <div class="row mt-1">
+    <div class="col-lg-5 pr-0">
+      <app-barchart [title]="bartit" [xlabel]="barxl" [ylabel]="baryl"></app-barchart>
+    </div>
+    <div class="col-lg-7 pl-0 wc">
+      <div id="wordcloud"></div>
+    </div>
+  </div>
