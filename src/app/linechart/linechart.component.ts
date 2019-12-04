@@ -48,14 +48,15 @@ export class LinechartComponent implements OnInit {
     if (data.length>1)
       y.domain([0,6.2])
     else
+        // @ts-ignore
       y.domain([d3.min(data[0].v.map(x=>x.Value))*0.9, data[0].v[0].Max*1.05]).ticks(8)
     transition.select("#y-axis").call(d3.axisLeft(y).tickSizeInner(-this.width));
     d3.selectAll("#y-axis .tick line").style("stroke","darkgrey").style("stroke-dasharray",3)
     // d3.select("#y-axis .tick line").style("stroke","black").style("stroke-dasharray",0)
 
     var line0 = d3.line()
-      .x(function(d) {console.log(x(wd_arr[d.Weekday - 1]));return x(wd_arr[d.Weekday - 1]);})
-      .y(function(d) {return y(d.Value);});
+        // @ts-ignore
+      .x(function(d) {console.log(x(wd_arr[d.Weekday - 1]));return x(wd_arr[d.Weekday - 1]);}).y(function(d) {return y(d.Value);});
 
     svg.selectAll(".svgline")
       .data(data).enter()
@@ -133,6 +134,7 @@ export class LinechartComponent implements OnInit {
     d3.select("#y-axis .tick line").style("stroke","black").style("stroke-dasharray",0)
 
     // add legends
+        // @ts-ignore
     var legendy = d3.scaleBand([20, this.height*0.65]).domain(this.countries).padding(0.3)
     var legends = svg.append("g")
       .attr("class", "legend")
@@ -171,8 +173,8 @@ export class LinechartComponent implements OnInit {
 
     // 4. draw all lines
     var line0 = d3.line()
-      .x(function(d) {return x(wd_arr[d.Weekday - 1]);})
-      .y(function(d) {return y(d.Value);});
+        // @ts-ignore
+      .x(function(d) {return x(wd_arr[d.Weekday - 1]);}).y(function(d) {return y(d.Value);});
 
     svg.selectAll(".svgline")
       .data(data)

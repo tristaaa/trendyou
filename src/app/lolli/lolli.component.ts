@@ -115,7 +115,7 @@ export class LolliComponent implements OnInit {
 
     this.svg.select("text.axis-label").text(evl);
 
-    var subtit=D3.select('.svg-title').selectAll(".subtit").data([{k:-1,v:evl},{k:1,v:srt}],d=> {return d.v})
+    var subtit=D3.select('.svg-title').selectAll(".subtit").data([{k:-1,v:evl},{k:1,v:srt}],d=> {return (d as any).v})
     var hv_wid = document.querySelector(".svg-title text").getClientRects()[0]['width']/2
     subtit.enter().append("text")
       .attr("class", "subtit")
@@ -143,34 +143,34 @@ export class LolliComponent implements OnInit {
     var transition = this.svg.transition().duration(1000);
     var delay = function(d, i) {return i * 30;};
     var delay1 = function(d, i) {return i * 50;};
-    var dataset = this.dataset;
-    console.log(dataset)
+    var dataset:Array<object> = this.dataset;
+    // console.log(dataset)
     var x=this.x,y=this.y,xAxis=this.xAxis,yAxis=this.yAxis;
 
-    x.domain(dataset.map(d => { return d.key }));
-    y.domain([0, D3.max(dataset, d => { return d.value }) * 1.05]);
+    x.domain(dataset.map(d => { return (d as any).key }));
+    y.domain([0, D3.max(dataset.map(d=>(d as any).value)) * 1.05]);
 
     transition.select("#xAxis").call(xAxis);
     transition.select("#yAxis").call(yAxis);
 
     var lollipopg = D3.select('.lollipop')
-    var lollipopc = lollipopg.selectAll("circle").data(dataset,d=> {return d.key})
-    var lollipopl = lollipopg.selectAll("line").data(dataset,d=> {return d.key})
+    var lollipopc = lollipopg.selectAll("circle").data(dataset,d=> {return (d as any).key})
+    var lollipopl = lollipopg.selectAll("line").data(dataset,d=> {return (d as any).key})
     var cnt_text = this.svg.selectAll(".count-text").data(dataset,d=> {return d.key})
 
     // UPDATE.
     lollipopc.transition()
       .duration(800)
       .delay(delay1)
-      .attr("cx", d => x(d.key)+0.5)
-      .attr("cy", d => y(d.value))
+      .attr("cx", d => x((d as any).key)+0.5)
+      .attr("cy", d => y((d as any).value))
     lollipopl.transition()
       .duration(800)
       .delay(delay1)
-      .attr("x1", d => x(d.key)+0.5)
-      .attr("x2", d => x(d.key))
+      .attr("x1", d => x((d as any).key)+0.5)
+      .attr("x2", d => x((d as any).key))
       .attr("y1", this.height)
-      .attr("y2", d => y(d.value));
+      .attr("y2", d => y((d as any).value));
     cnt_text.transition()
       .duration(800)
       .delay(delay1)
@@ -180,22 +180,22 @@ export class LolliComponent implements OnInit {
 
     // ENTER.
     lollipopc.enter().append("circle")
-      .attr("cx", d => x(d.key)+0.5)
-      .attr("cy", d => y(d.value))
+      .attr("cx", d => x((d as any).key)+0.5)
+      .attr("cy", d => y((d as any).value))
       .attr("r", 0)
       .transition()
       .duration(900)
       .delay(delay1)
       .attr("r", 6)
     lollipopl.enter().append("line")
-      .attr("x1", d => x(d.key)+0.5)
-      .attr("x2", d => x(d.key))
+      .attr("x1", d => x((d as any).key)+0.5)
+      .attr("x2", d => x((d as any).key))
       .attr("y1", this.height)
       .attr("y2",this.height)
       .transition()
       .duration(800)
       .delay(delay)
-      .attr("y2", d => y(d.value))
+      .attr("y2", d => y((d as any).value))
     cnt_text.enter().append("text")
       .attr("class","count-text")
       .attr("x", d => this.x(d.key))

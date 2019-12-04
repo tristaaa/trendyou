@@ -6,12 +6,12 @@ import * as data1 from '../../assets/world_top.json';
 import * as data2 from '../../assets/donut.json';
 import * as data3 from '../../assets/country_top5.json';
 
-
 @Component({
   selector: 'app-mapdonut',
   templateUrl: './mapdonut.component.html',
   styleUrls: ['./mapdonut.component.css']
 })
+
 export class MapdonutComponent implements OnInit {
   topodata = (data0 as any).default;
   mapdata = (data1 as any).default;
@@ -49,6 +49,7 @@ export class MapdonutComponent implements OnInit {
     data.title = "Category popularity temperature in %";
     var color = d3.scaleQuantize()
         .domain([3, 45])
+        // @ts-ignore
         .range(d3.schemeReds[8].slice(3,8))
 
     var margin = { top: 10, left: 0, right: 0, bottom: 0 },
@@ -68,6 +69,7 @@ export class MapdonutComponent implements OnInit {
     var path = d3.geoPath().projection(projection)
     svg.append("g")
       .attr("transform", "translate(500,20)")
+        // @ts-ignore
       .append(() => this.legend({ color, title: data.title, width: 210 }));
 
     svg.append("g")
@@ -75,17 +77,21 @@ export class MapdonutComponent implements OnInit {
       .selectAll(".path")
       .data(topojson.feature(world, world.objects.countries1).features.map(d => (d.value = data.get(d.id), d)))
       .join("path")
+        // @ts-ignore
       .attr("fill", d => color(data.get(d.id)))
       .attr("stroke", "white")
       .attr("d", path)
       .on("click",  (d, i)=> {
-        if (this.countries.indexOf(d.id)>-1){
+        // @ts-ignore
+        var did = d.id
+        if (this.countries.indexOf(did)>-1){
           d3.selectAll(".mytitle div").remove()
           d3.selectAll(".donut div").remove()
-          this.drawPieBig(d.id);
+          this.drawPieBig(did);
         }
       })
       .append("title")
+        // @ts-ignore
       .text(d => {if (d.value) return `${d.properties.name} ${data.get(d.id)}`; else return ''})
 
       svg.append("path")
@@ -117,6 +123,7 @@ export class MapdonutComponent implements OnInit {
 
     var pie = d3.pie()
       .sort(null)
+        // @ts-ignore
       .value(function (d) { return d.total; });
     var div = d3.select(".donut").append("div")
     div.attr("class","col-sm-4 pl-0 pr-0");
@@ -149,6 +156,7 @@ export class MapdonutComponent implements OnInit {
         .attr("class", "arc");
 
     var a = g.append("path")
+        // @ts-ignore
         .style("fill", function (d) { return color(d.data.name); })
 
     a.transition().delay(function (d, i) {return i * 100;}).duration(100)
@@ -212,7 +220,7 @@ export class MapdonutComponent implements OnInit {
 
     var legend_svg = d3.select(".donut").append("div").attr("class","col-md-3")
       .append("svg")
-      .attr("viewBox", [0, 0, 160, 260])
+      .attr("viewBox", `0 0 160 260`)
     legend_svg.selectAll(".circleleg")
       .data(colorleg)
       .enter()
@@ -227,6 +235,7 @@ export class MapdonutComponent implements OnInit {
       .append("text")
       .attr("x", 30)
       .attr("y", function (d, i) { return 45 + i * 30; })
+        // @ts-ignore
       .text(d=> d.name)
     legend_svg.append("text")
       .attr("x", 18)
@@ -244,11 +253,12 @@ export class MapdonutComponent implements OnInit {
 
     var pie = d3.pie()
         .sort(null)
+        // @ts-ignore
         .value(function (d) { return d.total; });
 
     var svg = d3.select(".donut").append("div").attr("class","col-md-8")
       .append("svg")
-      .attr("viewBox", [0, 0, width, height])
+      .attr("viewBox", `0 0 ${width} ${height}`)
       .append("g")
       .attr("transform", "translate(" + (-width / 2) + "," + (-height / 2) + ")");
 
@@ -278,6 +288,7 @@ export class MapdonutComponent implements OnInit {
         .attr("class", "arc");
 
     var a = g.append("path")
+        // @ts-ignore
         .style("fill", function (d) { return color(d.data.name); })
 
     a.transition().delay(function (d, i) {return 500+i * 100;}).duration(100)
@@ -353,7 +364,7 @@ export class MapdonutComponent implements OnInit {
     }
     len.splice(0,0,0)
     const svg = d3.create("svg")
-      .attr("viewBox", [0, 0, 700, 20])
+      .attr("viewBox", `0 0 700 20`)
     svg.append("text")
       .attr("y", 15)
       .attr("font-weight","bold")
@@ -364,28 +375,19 @@ export class MapdonutComponent implements OnInit {
       .attr("cx", function (d, i) { return  97 + i*35+len[i]*7; })
       .attr("cy", 10)
       .attr("r", 6)
+        // @ts-ignore
       .attr("fill", d=> {return d})
+    // @ts-ignore
     g.data(color.domain()).enter().append("text")
       .attr("x", function (d, i) { return  105 + i*35+len[i]*7; })
       .attr("y", 15)
+    // @ts-ignore
       .text(d=> d)
     return svg.node();
   }
 
-  legend({
-    color,
-    title,
-    tickSize = 6,
-    width = 320,
-    height = 44 + tickSize,
-    marginTop = 18,
-    marginRight = 0,
-    marginBottom = 16 + tickSize,
-    marginLeft = 0,
-    ticks = width / 64,
-    tickFormat,
-    tickValues
-  } = {}) {
+  // @ts-ignore
+  legend({color,title,tickSize = 6,width = 320,height = 44 + tickSize,marginTop = 18,marginRight = 0,marginBottom = 16 + tickSize,marginLeft = 0,ticks = width / 64,tickFormat,tickValues} = {}) {
     const svg = d3.create("svg")
         .attr("width", width)
         .attr("height", height)
@@ -407,6 +409,7 @@ export class MapdonutComponent implements OnInit {
             .attr("width", width - marginLeft - marginRight)
             .attr("height", height - marginTop - marginBottom)
             .attr("preserveAspectRatio", "none")
+        // @ts-ignore
             .attr("xlink:href", ramp(color.interpolator()).toDataURL());
 
         // scaleSequentialQuantile doesn’t implement ticks or tickFormat.
@@ -437,6 +440,7 @@ export class MapdonutComponent implements OnInit {
           .domain([-1, color.range().length - 1])
           .rangeRound([marginLeft, width - marginRight]);
 
+        // @ts-ignore
       svg.append("g")
           .selectAll("rect")
           .data(color.range())
@@ -445,6 +449,7 @@ export class MapdonutComponent implements OnInit {
           .attr("y", marginTop)
           .attr("width", (d, i) => x(i) - x(i - 1))
           .attr("height", height - marginTop - marginBottom)
+        // @ts-ignore
           .attr("fill", d => d);
 
       tickValues = d3.range(thresholds.length);

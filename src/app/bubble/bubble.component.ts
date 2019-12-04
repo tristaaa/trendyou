@@ -97,11 +97,13 @@ export class BubbleComponent implements OnInit {
     .enter()
     .append("g")
 
+        // @ts-ignore
     legends.append("circle")
       .attr("cx", width + 40)
       .attr("cy", d => legendy((d as any).k) + 13)
       .attr("r", 6)
-      .attr("fill", (d) => myColor((d as any).k))
+        // @ts-ignore
+      .attr("fill", (d) => myColor(d.k))
 
     legends.append("text")
       .attr("x", width + 55)
@@ -110,10 +112,13 @@ export class BubbleComponent implements OnInit {
       .text(d => (d as any).k)
 
   // add bubble
+        // @ts-ignore
   var cg = svg.selectAll(".cirg")
     .data(data)
     .enter().append("g")
+        // @ts-ignore
     .attr("class", d=>{return "cirg "+d.k})
+        // @ts-ignore
     .attr("fill", d => myColor(d.k))
     .attr("opacity", 0.6)
     .attr("stroke", "#ddd")
