@@ -7,7 +7,7 @@ header { color: white; }
 .navbar.actived .navbar-brand svg { fill: white; }
 .navbar-brand { padding: 0.5rem 1rem }
 .navbar-brand svg { width: 1.8rem; height: 2.4rem; fill: #FE5756; }
-.banner { margin: 0 auto; background-image: url("/assets/banner.png"); width: 100%; background-size: cover; background-attachment: scroll; }
+.banner { margin: 0 auto; background-image: url("./assets/banner.png"); width: 100%; background-size: cover; background-attachment: scroll; }
 .banner h1 { position: relative; padding: 26rem 1rem 6.2rem 1rem; text-align: center; margin: 0; text-transform: uppercase; }
 .banner h1:after { content: ''; position: absolute; bottom: 6rem; left: 20%; background: white; width: 60%; height: .25rem; }
 footer { text-align: center; padding: .6rem; width: 100%; background: #f7f7f7; }
