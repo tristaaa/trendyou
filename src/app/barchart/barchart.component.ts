@@ -31,7 +31,7 @@ export class BarchartComponent implements OnInit {
 
     // axes scales
     var x = D3.scaleLinear()
-      .domain([0, maxv*1.08]).range([0,width])
+      .domain([0, +maxv*1.08]).range([0,width])
     var xAxis = D3.axisTop(x).tickSizeOuter(0).ticks(7)
 
     var y = D3.scaleBand()

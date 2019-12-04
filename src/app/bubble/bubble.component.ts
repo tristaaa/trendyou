@@ -33,7 +33,7 @@ export class BubbleComponent implements OnInit {
     var cates = data.map(x=>x.k)
     var myColor = d3.scaleOrdinal()
       .domain(cates)
-      .range(d3.schemePaired.slice(0,10).concat(d3.schemeTableau10.slice(0,6)));
+      .range(d3.schemePaired.slice(0,10).concat(d3.schemeCategory10.slice(0,6)));
 
     d3.select("g.wholeg").remove()
     var svg = d3.select(".bubblechart")
@@ -89,7 +89,7 @@ export class BubbleComponent implements OnInit {
     .text("Video Views According to Their Likes and Dislikes")
 
   // add legends
-  var legendy = d3.scalePoint([20, height*0.8]).domain(cates).padding(0.3)
+  var legendy = d3.scalePoint().domain(cates).range([20, height*0.8]).padding(0.3)
   var legends = svg.append("g")
     .attr("class", ".legend")
     .selectAll("g")
@@ -99,15 +99,15 @@ export class BubbleComponent implements OnInit {
 
     legends.append("circle")
       .attr("cx", width + 40)
-      .attr("cy", d => legendy(d.k) + 13)
+      .attr("cy", d => legendy((d as any).k) + 13)
       .attr("r", 6)
-      .attr("fill", (d) => myColor(d.k))
+      .attr("fill", (d) => myColor((d as any).k))
 
     legends.append("text")
       .attr("x", width + 55)
-      .attr("y", d => legendy(d.k) + 18)
+      .attr("y", d => legendy((d as any).k) + 18)
       .style("font-size","11px")
-      .text(d => d.k)
+      .text(d => (d as any).k)
 
   // add bubble
   var cg = svg.selectAll(".cirg")
@@ -165,8 +165,8 @@ export class BubbleComponent implements OnInit {
     if (srcEle.nodeName=="INPUT" && srcEle.classList[1]=="myck"){
       var id = srcEle.id;
       var cks = document.querySelectorAll(".myck")
-      var ckd0 = cks[0].checked;
-      var ckd1 = cks[1].checked;
+      var ckd0 = (cks[0] as any).checked;
+      var ckd1 = (cks[1] as any).checked;
       console.log(id)
       if (ckd0 && ckd1){
         this.drawBubble(this.data0.filter(d=> d.k!="Music" && d.k!="Entertainment"))
