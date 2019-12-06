@@ -1,5 +1,5 @@
 /* Application-wide Styles */
-* { font-family: "Trade Gothic LT Std", "Arial"; }
+* { font-family: "Trade Gothic LT Std", "Avenir Next Condensed",sans serif; }
 li { list-style: none; }
 header { color: white; }
 .navbar { transition: background-color 500ms ease-in; }

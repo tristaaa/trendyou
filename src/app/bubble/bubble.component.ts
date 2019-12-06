@@ -31,9 +31,10 @@ export class BubbleComponent implements OnInit {
     var width = 1000 - margin.left - margin.right,
       height = 500 - margin.top - margin.bottom;
     var cates = data.map(x=>x.k)
+    var colorlist = [d3.schemePaired[1]].concat(d3.schemePaired.slice(2,12)).concat(d3.schemeDark2.slice(0,6))
     var myColor = d3.scaleOrdinal()
       .domain(cates)
-      .range(d3.schemePaired.slice(0,10).concat(d3.schemeCategory10.slice(0,6)));
+      .range(colorlist);
 
     d3.select("g.wholeg").remove()
     var svg = d3.select(".bubblechart")
@@ -50,12 +51,12 @@ export class BubbleComponent implements OnInit {
 
   // axes scales
   var x = d3.scaleLinear()
-    .domain([+mivl-100,+mavl])
+    .domain([+mivl-12000,+mavl])
     .range([0,width])
   var xAxis = d3.axisBottom(x).tickSizeOuter(0)
 
   var y = d3.scaleLinear()
-    .domain([+mivd-100,+mavd])
+    .domain([+mivd-10000,+mavd])
     .range([height,0])
   var yAxis = d3.axisLeft(y).tickSizeOuter(0)
 
@@ -96,6 +97,8 @@ export class BubbleComponent implements OnInit {
     .data(data)
     .enter()
     .append("g")
+    .on("mouseover", (d, i) => {svg.selectAll(".cirg").attr("opacity", 0.1);svg.select(".cirg.cl" + i).attr("opacity", 1)})
+    .on("mouseout", (d, i) => svg.selectAll(".cirg").attr("opacity", 0.65))
 
         // @ts-ignore
     legends.append("circle")
@@ -117,10 +120,10 @@ export class BubbleComponent implements OnInit {
     .data(data)
     .enter().append("g")
         // @ts-ignore
-    .attr("class", d=>{return "cirg "+d.k})
+    .attr("class", (d,i)=>{return "cirg cl"+i})
         // @ts-ignore
     .attr("fill", d => myColor(d.k))
-    .attr("opacity", 0.6)
+    .attr("opacity", 0.65)
     .attr("stroke", "#ddd")
 
   cg.selectAll(".circlebu")
