@@ -38,7 +38,6 @@ export class MapdonutComponent implements OnInit {
     this.donutdata.forEach(d=> this.drawPie(d, d.key))
   }
 
-
   drawWorld(catid) {
     var format = d => `${d}%`
     var world = this.topodata;
@@ -69,7 +68,7 @@ export class MapdonutComponent implements OnInit {
     var path = d3.geoPath().projection(projection)
     svg.append("g")
       .attr("transform", "translate(500,20)")
-        // @ts-ignore
+      // @ts-ignore
       .append(() => this.legend({ color, title: data.title, width: 210 }));
 
     svg.append("g")
