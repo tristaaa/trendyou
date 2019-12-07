@@ -6,7 +6,7 @@ import { Component, HostListener } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent{
-  title = 'Strategies Behind Youtube Trending Vidoes';
+  title = 'Strategies Behind Youtube Trending Videos';
   public isActive = false;
 
   @HostListener("window:scroll",['$event']) changeNav($event){
