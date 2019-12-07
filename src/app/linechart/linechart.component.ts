@@ -56,7 +56,7 @@ export class LinechartComponent implements OnInit {
 
     var line0 = d3.line()
         // @ts-ignore
-      .x(function(d) {console.log(x(wd_arr[d.Weekday - 1]));return x(wd_arr[d.Weekday - 1]);}).y(function(d) {return y(d.Value);});
+      .x(function(d) {return x(wd_arr[d.Weekday - 1]);}).y(function(d) {return y(d.Value);});
 
     svg.selectAll(".svgline")
       .data(data).enter()

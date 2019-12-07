@@ -174,7 +174,6 @@ export class BubbleComponent implements OnInit {
       var cks = document.querySelectorAll(".myck")
       var ckd0 = (cks[0] as any).checked;
       var ckd1 = (cks[1] as any).checked;
-      console.log(id)
       if (ckd0 && ckd1){
         this.drawBubble(this.data0.filter(d=> d.k!="Music" && d.k!="Entertainment"))
       }else if (ckd0){
