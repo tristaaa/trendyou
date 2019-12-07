@@ -47,7 +47,6 @@ export class BubbleComponent implements OnInit {
     var mivl = d3.min(data.flatMap(x=> d3.min(x.v.map(y=> y.likes))))
     var mavd = d3.max(data.flatMap(x=> d3.max(x.v.map(y=> y.dislikes))))
     var mivd = d3.min(data.flatMap(x=> d3.min(x.v.map(y=> y.dislikes))))
-    // console.log(mivl,mivd)
 
   // axes scales
   var x = d3.scaleLinear()
